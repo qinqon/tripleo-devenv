@@ -17,4 +17,4 @@ release: tag_latest
 	@echo "*** Don't forget to create a tag by creating an official GitHub release."
 
 run:
-	docker run -it $(NAME):$(VERSION)
+	docker run -v /tmp/:/host/tmp/:z -it $(NAME):$(VERSION)

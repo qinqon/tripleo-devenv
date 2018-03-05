@@ -5,7 +5,9 @@ RUN yum -y install \
   git \
   openssh-clients
 RUN echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-RUN useradd -ms /bin/bash stack
-USER stack
-WORKDIR /home/stack
-CMD ["bash"]
+RUN git clone https://github.com/openstack/tripleo-quickstart \
+    && cd tripleo-quickstart \
+    && bash quickstart.sh --install-deps
+WORKDIR tripleo-quickstart
+COPY install-ssh-keys.sh .
+CMD bash install-ssh-keys.sh /host/tmp/
